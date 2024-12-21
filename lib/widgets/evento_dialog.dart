@@ -56,6 +56,7 @@ class _EventoDialogState extends State<EventoDialog> {
             const SizedBox(height: 10),
             // Botón para seleccionar el color
             ElevatedButton(
+style: ElevatedButton.styleFrom(backgroundColor: color,),
               onPressed: () {
                 // Abre el ColorPicker como popup
                 showDialog(
