@@ -17,7 +17,7 @@ class _EventoDialogState extends State<EventoDialog> {
   late TextEditingController tituloController;
   late Color color;
   late String tipoJornada;
-  late int horaInicio, minutoInicio, horaFin, minutoFin;
+  late TextEditingController horaInicio, minutoInicio, horaFin, minutoFin;
 
   @override
   void initState() {
@@ -25,10 +25,19 @@ class _EventoDialogState extends State<EventoDialog> {
     tituloController = TextEditingController(text: widget.evento?.titulo ?? '');
     color = widget.evento?.color ?? Colors.blue;
     tipoJornada = widget.evento?.tipoJornada ?? 'Mañana';
-    horaInicio = widget.evento?.horaInicio ?? 0;
-    minutoInicio = widget.evento?.minutoInicio ?? 0;
-    horaFin = widget.evento?.horaFin ?? 0;
-    minutoFin = widget.evento?.minutoFin ?? 0;
+    horaInicio = TextEditingController(text: widget.evento?.horaInicio.toString() ?? '0');
+    minutoInicio = TextEditingController(text: widget.evento?.minutoInicio.toString() ?? '0');
+    horaFin = TextEditingController(text: widget.evento?.horaFin.toString() ?? '0');
+    minutoFin = TextEditingController(text: widget.evento?.minutoFin.toString() ?? '0');
+  }
+
+  @override
+  void dispose() {
+    horaInicio.dispose();
+    minutoInicio.dispose();
+    horaFin.dispose();
+    minutoFin.dispose();
+    super.dispose();
   }
 
   @override
@@ -91,53 +100,50 @@ class _EventoDialogState extends State<EventoDialog> {
                 });
               },
             ),
-            if (tipoJornada != 'Vacio') ...[
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(labelText: 'Hora inicio'),
-                      onChanged: (value) => horaInicio = int.tryParse(value) ?? 0,
-                      controller: TextEditingController(text: horaInicio.toString()),
-                    ),
+            
+          if (tipoJornada != 'Vacio') ...[
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: horaInicio,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(labelText: 'Hora inicio'),
                   ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(labelText: 'Minuto inicio'),
-                      onChanged: (value) => minutoInicio = int.tryParse(value) ?? 0,
-                      controller: TextEditingController(text: minutoInicio.toString()),
-                    ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: TextField(
+                    controller: minutoInicio,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(labelText: 'Minuto inicio'),
                   ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(labelText: 'Hora fin'),
-                      onChanged: (value) => horaFin = int.tryParse(value) ?? 0,
-                      controller: TextEditingController(text: horaFin.toString()),
-                    ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: horaFin,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(labelText: 'Hora fin'),
                   ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(labelText: 'Minuto fin'),
-                      onChanged: (value) => minutoFin = int.tryParse(value) ?? 0,
-                      controller: TextEditingController(text: minutoFin.toString()),
-                    ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: TextField(
+                    controller: minutoFin,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(labelText: 'Minuto fin'),
                   ),
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
           ],
+          ]
         ),
       ),
       actions: [
@@ -152,10 +158,10 @@ class _EventoDialogState extends State<EventoDialog> {
               tituloController.text,
               color,
               tipoJornada,
-              horaInicio: horaInicio,
-              minutoInicio: minutoInicio,
-              horaFin: horaFin,
-              minutoFin: minutoFin,
+              horaInicio: int.tryParse(horaInicio.text) ?? 0,
+              minutoInicio: int.tryParse(minutoInicio.text) ?? 0,
+              horaFin: int.tryParse(horaFin.text) ?? 0,
+              minutoFin: int.tryParse(minutoFin.text) ?? 0,
             );
             widget.onSave(nuevoEvento);
             Navigator.pop(context);
