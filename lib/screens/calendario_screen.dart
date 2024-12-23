@@ -61,6 +61,8 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
       body: Column(
         children: [
           TableCalendar(
+startinDayofWeek:
+Starting
             focusedDay: _selectedDay,
             firstDay: DateTime(2000),
             lastDay: DateTime(2100),
