@@ -100,6 +100,9 @@ class _CalendarioScreenState extends State<CalendarioScreen> {
             //Final estilo calendario
 
           ),
+
+Expanded(child: Row(children[])),
+
           Expanded(
             child: ListView.builder(
               itemCount: _eventos[_selectedDay]?.length ?? 0,
