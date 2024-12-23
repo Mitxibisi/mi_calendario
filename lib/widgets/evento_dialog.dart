@@ -65,7 +65,7 @@ class _EventoDialogState extends State<EventoDialog> {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       title: const Text('Selecciona un color',
-                      selectionColor: Colors.black,),
+                      style: TextStyle(color: Colors.black)),
                       content: SingleChildScrollView(
                         child: ColorPickerScreen(
                           onColorChanged: (Color selectedColor) {
